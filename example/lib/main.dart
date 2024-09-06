@@ -24,8 +24,11 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   /// also support url like this: 'www.vimeo.com/70591644', 'vimeo.com/70591644'
-  // final String _vimeoVideoUrl = 'https://vimeo.com/70591644';
-  final String _vimeoVideoUrl = 'https://player.vimeo.com/video/841319969';
+  // final String _vimeoVideoUrl = 'https://vimeo.com/226053498';
+  final String _vimeoVideoUrl = 'https://player.vimeo.com/video/226053498';
+  final String _baseUrl = 'https://api.vimeo.com/';
+  final String token =
+      'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; // replace your token here
 
   @override
   Widget build(BuildContext context) {
