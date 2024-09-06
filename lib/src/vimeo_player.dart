@@ -12,6 +12,12 @@ class VimeoVideoPlayer extends StatefulWidget {
   /// vimeo video url
   final String url;
 
+  /// vimeo video baseUrl
+  final String baseUrl;
+
+  /// vimeo video baseUrl
+  final String token;
+
   /// hide/show device status-bar
   final List<SystemUiOverlay> systemUiOverlay;
 
@@ -41,6 +47,8 @@ class VimeoVideoPlayer extends StatefulWidget {
 
   const VimeoVideoPlayer({
     required this.url,
+    required this.baseUrl,
+    required this.token,
     this.systemUiOverlay = const [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
@@ -214,7 +222,7 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
   void _videoPlayer() {
     /// getting the vimeo video configuration from api and setting managers
     _getVimeoVideoConfigFromUrl(widget.url).then((value) async {
-      final progressiveList = value?.request?.files?.progressive;
+      final progressiveList = value?.files?.progressive;
 
       var vimeoMp4Video = '';
 
@@ -264,8 +272,14 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
     required String vimeoVideoId,
   }) async {
     try {
-      Response responseData = await Dio().get(
-        'https://player.vimeo.com/video/$vimeoVideoId/config',
+      Response responseData = await Dio(BaseOptions(
+        baseUrl: widget.baseUrl,
+        headers: {
+          'Accept': 'application/vnd.vimeo.*+json;version=3.1',
+          'Authorization': 'Bearer ${widget.token}',
+        },
+      )).get(
+        'me/videos/$vimeoVideoId?fields=play',
         options: widget.dioOptionsForVimeoVideoConfig,
       );
       var vimeoVideo = VimeoVideoConfig.fromJson(responseData.data);

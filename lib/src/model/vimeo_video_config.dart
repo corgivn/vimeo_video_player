@@ -1,10 +1,10 @@
 class VimeoVideoConfig {
-  VimeoVideoConfig({this.request});
+  VimeoVideoConfig({this.files});
 
   factory VimeoVideoConfig.fromJson(Map<String, dynamic> json) =>
-      VimeoVideoConfig(request: VimeoRequest.fromJson(json["request"]));
+      VimeoVideoConfig(files: VimeoFiles.fromJson(json["play"]));
 
-  VimeoRequest? request;
+  VimeoFiles? files;
 }
 
 class VimeoRequest {
@@ -68,7 +68,7 @@ class VimeoProgressive {
         width: json["width"],
         mime: json["mime"],
         fps: json["fps"],
-        url: json["url"],
+        url: json["link"],
         cdn: json["cdn"],
         quality: json["quality"],
         id: json["id"],

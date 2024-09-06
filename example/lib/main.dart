@@ -34,6 +34,8 @@ class MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: VimeoVideoPlayer(
           url: _vimeoVideoUrl,
+          baseUrl: _baseUrl,
+          token: token,
           autoPlay: true,
         ),
       ),
