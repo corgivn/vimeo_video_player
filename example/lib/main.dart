@@ -40,6 +40,9 @@ class MyHomePageState extends State<MyHomePage> {
           baseUrl: _baseUrl,
           token: token,
           autoPlay: true,
+
+          /// disable seek
+          canSeek: false,
         ),
       ),
     );
