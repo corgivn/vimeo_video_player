@@ -45,6 +45,8 @@ class VimeoVideoPlayer extends StatefulWidget {
   /// Used in vimeo video public API call to get the video config
   final Options? dioOptionsForVimeoVideoConfig;
 
+  final bool canSeek;
+
   const VimeoVideoPlayer({
     required this.url,
     required this.baseUrl,
@@ -64,6 +66,7 @@ class VimeoVideoPlayer extends StatefulWidget {
     this.onFinished,
     this.autoPlay = false,
     this.dioOptionsForVimeoVideoConfig,
+    this.canSeek = true,
     super.key,
   });
 
@@ -156,13 +159,18 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
                       ),
                   systemUIOverlay: widget.systemUiOverlay,
                   preferredDeviceOrientation: widget.deviceOrientation,
-                  flickVideoWithControls: const FlickVideoWithControls(
+                  flickVideoWithControls: FlickVideoWithControls(
                     videoFit: BoxFit.fitWidth,
-                    controls: FlickPortraitControls(),
+                    controls: FlickPortraitControls(
+                      canSeek: widget.canSeek,
+                      progressBarSettings:
+                          FlickProgressBarSettings(canSeek: widget.canSeek),
+                    ),
                   ),
-                  flickVideoWithControlsFullscreen:
-                      const FlickVideoWithControls(
-                    controls: FlickLandscapeControls(),
+                  flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                    controls: FlickLandscapeControls(
+                      canSeek: widget.canSeek,
+                    ),
                   ),
                 )
               : const Center(
