@@ -235,16 +235,12 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
       var vimeoMp4Video = '';
 
       if (progressiveList != null && progressiveList.isNotEmpty) {
-        progressiveList.map((element) {
-          if (element != null &&
-              element.url != null &&
-              element.url != '' &&
-              vimeoMp4Video == '') {
-            vimeoMp4Video = element.url ?? '';
-          }
-        }).toList();
+        progressiveList
+            .sort((a, b) => (b?.width ?? 0).compareTo(a?.width ?? 0));
+        final videoInfo = progressiveList.firstOrNull;
+        vimeoMp4Video = videoInfo?.url ?? '';
         if (vimeoMp4Video.isEmpty || vimeoMp4Video == '') {
-          showAlertDialog(context);
+          if (context.mounted) showAlertDialog(context);
         }
       }
 
